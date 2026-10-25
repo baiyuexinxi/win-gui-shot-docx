@@ -47,7 +47,7 @@ A4（会话 Active）、A5（n≥3）目前**只记录不阻断**。清单见 `r
 2. 写块 + 锚点     → examples/manifest.tsv 格式，每条 item 给出 head / tail 锚点
 3. 采集 + 判定     → scripts/capture.ps1 调 hook，逐条调 verify2
 4. 处置            → OK 收；RETRY 重采一次；SPLIT 交回作者拆块（见 split-policy）
-5. 入库            → 图 + 一句说明成对进 docx（图不可单独存在）
+5. 入库            → scripts/to-docx.ps1：图 + 图注成对进 docx（图不可单独存在）
 ```
 
 ## 脚本契约
@@ -58,6 +58,7 @@ A4（会话 Active）、A5（n≥3）目前**只记录不阻断**。清单见 `r
 | `scripts/verify2.ps1` | `-Image -Head -Tail -Mode first\|any [-ScanLines -MinScore -RetryUsed -MaxHeight]` | `ACT=OK\|RETRY\|SPLIT\|FAIL`、`WHY=`、`SIZE=`、`LINES=`、`HEAD=分值@行号`、`TAIL=0/1`、`FORBIDN=` |
 | `scripts/hook_rstudio.ps1` | `-CodeFile -OutPng -Wait -Attempt [-TopFrac -RightFrac]` | 截图到 OutPng；打印 `HOOK_OK/HOOK_NO_WINDOW/HOOK_NOT_FOREGROUND/...` |
 | `scripts/hook_stub.ps1` | 同上 | 从 `fixtures/` 拷图，用于回归测试，不碰真实窗口 |
+| `scripts/to-docx.ps1` | `-Manifest -Out [-Title -Pandoc -WidthIn -NoCaption]` | `DOCX_OK name images=N size=KB`；自动找 pandoc（PATH → RStudio 内置），并给 theme1.xml 打中文字体补丁 |
 | `scripts/gate.ps1` | `-GateFile -AnswersFile` | `VERDICT=ALLOW` 或 `VERDICT=DENY A2:DENY_CHANNEL`，附 `PASS=` `WARN=` |
 
 ## 硬性规则

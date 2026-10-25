@@ -2,6 +2,8 @@
 
 把「某个 GUI 软件里真实跑出来的界面」截成图、自动校验、再插进 Word 文档的可复用流水线。
 
+`仓库` https://github.com/baiyuexinxi/win-gui-shot-docx · `许可` MIT · `平台` Windows
+
 为 Windows + DSH 设计，重点解决一个具体痛点：**没有图像输入能力时，怎么知道这张截图是不是废的。**
 
 ## 为什么不是"截个图而已"
@@ -40,6 +42,10 @@ powershell -ExecutionPolicy Bypass -File scripts\capture.ps1 `
 powershell -ExecutionPolicy Bypass -File scripts\capture.ps1 `
   -Manifest my-manifest.tsv -OutDir imgs -LogPath imgs\log.json `
   -Hook scripts\hook_rstudio.ps1
+
+# 4. 图 + 图注 → Word（自动打中文字体补丁）
+powershell -ExecutionPolicy Bypass -File scripts\to-docx.ps1 `
+  -Manifest examples\manifest-docx.tsv -Out out\demo.docx -Title "实验报告"
 ```
 
 manifest 每行：`名字|代码文件|head锚点|tail锚点|模式(first|any)|等待秒数`
@@ -70,16 +76,18 @@ manifest 每行：`名字|代码文件|head锚点|tail锚点|模式(first|any)|�
 
 ```
 SKILL.md                    工作流、硬规则、脚本契约
+LICENSE                     MIT
 references/gate.md          入口清单（5 条判据 + 否决码）
 references/split-policy.md  溢出拆图策略（R1–R6）
 references/pitfalls.md      12 个实际踩过的坑
 scripts/verify2.ps1         判定器：ACT/WHY/证据
 scripts/capture.ps1         薄驱动：状态机 + 钩子
+scripts/to-docx.ps1         图 + 图注 → docx（含中文字体补丁）
 scripts/hook_rstudio.ps1    RStudio 采集钩子
 scripts/hook_stub.ps1       测试桩（从 fixtures 拷图）
 scripts/gate.ps1            入口闸门评估
 fixtures/                   回归素材（5 张）
-examples/                   manifest 与锚点示例
+examples/                   manifest、锚点与 docx 示例
 ```
 
 ## 适用 / 不适用

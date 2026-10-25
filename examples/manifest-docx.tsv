@@ -1,0 +1,5 @@
+# 一、管道操作
+fixtures/f_q1_1.png	图 1　管道操作符 %>%
+# 二、缺失值处理
+fixtures/f_q2_3.png	图 2　缺失值的删除
+fixtures/f_q3_1a.png	图 3　自定义函数 find_kmer()
