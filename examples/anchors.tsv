@@ -1,0 +1,12 @@
+q1_1	library(magrittr)
+q1_2	library(magrittr)
+q1_3	library(magrittr); library(dplyr)
+q2_1	library(VIM)
+q2_2	library(VIM); library(mice)
+q2_3	library(VIM)
+q2_4a	library(VIM); library(Hmisc)
+q2_4b	library(mice); library(missForest)
+q3_1a	find_kmer <- function(seq, k = 4) {
+q3_1b	dna <- "ATGCGCGTTTTTAAACCCCGGGGGATCGATCGAAAATTTTTTC"
+q3_2a	find_words <- function(file) {
+q3_2b	w <- find_words("mywords.txt")

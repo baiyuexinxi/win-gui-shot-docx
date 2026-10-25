@@ -1,0 +1,6 @@
+# regression: 覆盖 OK / SPLIT / FAIL 三条分支（配合 hook_stub.ps1）
+reg_ok1|f_q1_1|library(magrittr)|4.786282|first|0
+reg_ok2|f_q2_3|library(VIM)|[1] 42 10|first|0
+reg_ok3|f_q3_1a|find_kmer|data.frame|first|0
+reg_split|f_split|library(Hmisc)|FALSE|first|0
+reg_fail|f_retry_bad|library(VIM)|package|first|0

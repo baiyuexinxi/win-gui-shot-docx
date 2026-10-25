@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "note": "Gate rules. Only A1/A2/A3 are enforced for now; A4/A5 are recorded but never block.",
+  "enforce": ["A1", "A2", "A3"],
+  "rules": [
+    {
+      "id": "A1",
+      "name": "介质必要性 / media necessity",
+      "code": "DENY_TEXT",
+      "enforced": true,
+      "fields": ["claim_it_proves", "not_expressible_as_text"],
+      "pass": "claim_it_proves 非空 AND not_expressible_as_text == true",
+      "counter": "把 `[1] 62 10` 截成图；结论一句话就能写完，图是纯噪声"
+    },
+    {
+      "id": "A2",
+      "name": "通道优先 / channel first",
+      "code": "DENY_CHANNEL",
+      "enforced": true,
+      "fields": ["not_in_channel_table"],
+      "pass": "目标软件不在通道表内",
+      "counter": "浏览器页面用 dsh_browser_* / CDP；命令行直接重定向 stdout；matplotlib/ggplot 直接导出图片"
+    },
+    {
+      "id": "A3",
+      "name": "判据可枚举 / oracle exists",
+      "code": "DENY_NO_ORACLE",
+      "enforced": true,
+      "fields": ["anchor", "anchor_line_hint"],
+      "pass": "anchor 长度 >= 8 且为 ASCII 片段或数字串，且能说明大致在第几行",
+      "counter": "只想截一张 Krita 画布效果图——没有可枚举的文本判据"
+    },
+    {
+      "id": "A4",
+      "name": "环境可用 / desktop available",
+      "code": "DENY_NO_DESKTOP",
+      "enforced": false,
+      "fields": ["session_active", "window_found"],
+      "pass": "quser 显示 Active 且目标窗口能被 EnumWindows 命中",
+      "counter": "锁屏、RDP 断开、session 0"
+    },
+    {
+      "id": "A5",
+      "name": "规模经济 / scale economy",
+      "code": "DENY_TRIVIAL",
+      "enforced": false,
+      "fields": ["planned_count"],
+      "pass": "planned_count >= 3",
+      "counter": "只要 1~2 张图，手写 20 行截完更快"
+    }
+  ]
+}
